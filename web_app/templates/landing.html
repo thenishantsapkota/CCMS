@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %} Generate Certificate {% endblock %}
+{% block content %}
+
+<div class="buttons">
+    <a href="{% url 'create' %}"><button class="btn btn-primary">Create Certificate</button></a>
+    <a href="{% url 'search' %}"><button class="btn btn-primary">Search Certificate</button></a>
+</div>
+
+{% endblock %}

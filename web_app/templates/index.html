@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %} Generate Certificate {% endblock %}
+{% block content %}
+    
+   <form method="post">
+    {% csrf_token %}
+    <h1 class="mx-auto">Generate Certificate</h1>
+        <div class="form-group">
+            {{form}}
+        </div>
+        <div class="login-button">
+            <button class="btn btn-primary btn-lg" type="submit" method="post">Create&#10132;</button>
+          </div>
+   </form>    
+   <a href="{% url 'landing' %}"><button class="btn btn-primary btn-lg">Back</button></a>
+
+{% endblock %}

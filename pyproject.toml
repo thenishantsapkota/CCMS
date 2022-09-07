@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "certificate generator"
+version = "0.1.0"
+description = "An character certificate generator Web application"
+authors = ["Nishant Sapkota <snishant306@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+Django = "^4.1.1"
+Pillow = "^9.2.0"
+django-versatileimagefield = "^2.2"
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^22.8.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
