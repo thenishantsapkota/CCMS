@@ -13,9 +13,6 @@ Pillow = "^9.2.0"
 django-versatileimagefield = "^2.2"
 
 
-[tool.poetry.group.dev.dependencies]
-black = "^22.8.0"
-
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
