@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-p5x*$+uwtiwfe*ym!7q)@)egt&!ib!&23k&((u$k&g2)9yf*3t"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["vps112.nest-server.com", "127.0.0.1"]
 
