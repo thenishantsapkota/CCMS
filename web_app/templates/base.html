@@ -15,11 +15,27 @@
     <!-- <link rel="stylesheet" href="{% static 'css/styles.css' %}" /> -->
 </head>
 <body>
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+          Certificate Generator
+        </a>
+    
+
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                {% if request.user.is_authenticated %}
+                <a href="{% url 'logout' %}"><button class="btn btn-danger btn-md">Logout</button></a>
+                {% else %}
+                <a href="{% url 'login' %}"><button class="btn btn-primary btn-md">Login</button></a>
+                {% endif %}
+             </div>
+        </div>
+      </nav>
     {% block content %}
     {% endblock %}
     {% for message in messages %}
     <script>
-    alertify.set('notifier','position', 'top-right');
+    alertify.set('notifier','position', 'bottom');
     alertify.success('{{message}}');
     </script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

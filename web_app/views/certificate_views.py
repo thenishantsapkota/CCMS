@@ -1,18 +1,18 @@
 import base64
-import os
 from django.shortcuts import render
 from django.views import View
 
-from web_app.models import Certificate
 
-from .forms import CertificateForm, CertificateSearch
+from ..forms import CertificateForm, CertificateSearch
 from web_app.utils.util import create_certificate
+
 
 
 class LandingView(View):
     def get(self, request):
         return render(request, "landing.html")
-# Create your views here.
+
+
 class CertificateView(View):
     form = CertificateForm
 
@@ -52,7 +52,7 @@ class CertificateView(View):
             ) as f:
                 data = base64.b64encode(f.read()).decode("utf-8")
 
-            ctx = {"image": data, "form": form}
+            ctx = {"image": data, "form": form, "title": "image"}
 
             return render(request, "image.html", ctx)
         return render(request, "index.html", {"form": form})
