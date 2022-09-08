@@ -1,8 +1,194 @@
 {% extends 'base.html' %}
-{% block title %} Generate Certificate {% endblock %}
+{% block title %} Create Certificate {% endblock %}
 {% block content %}
+<section class="vh-100 gradient-custom">
+    <div class="container py-5 h-100">
+      <div class="row justify-content-center align-items-center h-100">
+        <div class="col-12 col-lg-9 col-xl-7">
+          <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+            <div class="card-body p-4 p-md-5">
+              <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Generate Character Certificate</h3>
+              
+              
+              <form method="post">
+                {% csrf_token %}
+  
+                <div class="row">
+                  <div class="col-md-6 mb-4">
+  
+                    <div class="form-outline">
+                      {{form.school_name}}
+                      {{form.school_name.errors}}
+
+                      <label class="form-label" for="firstName">School's Name</label>
+                    </div>
+  
+                  </div>
+                  <div class="col-md-6 mb-4">
+  
+                    <div class="form-outline">
+                      {{form.school_address}}
+                      {{form.school_address.errors}}
+                      <label class="form-label" for="lastName">School Address</label>
+                    </div>
+  
+                  </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-4 pb-2">
     
-   <form method="post">
+                      <div class="form-outline">
+                        {{form.established_date}}
+                        {{form.established_date.errors}}
+                        <label class="form-label" for="emailAddress">School Estd Date</label>
+                      </div>
+    
+                    </div>
+                    <div class="col-md-6 mb-4 pb-2">
+    
+                      <div class="form-outline">
+                        {{form.student_name}}
+                        {{form.student_name.errors}}
+                        <label class="form-label" for="phoneNumber">Student's Name</label>
+                      </div>
+    
+                    </div>
+                  </div>
+  
+                <div class="row">
+                  <div class="col-md-6 mb-4 d-flex align-items-center">
+  
+                    <div class="form-outline datepicker w-100">
+                      {{form.date_of_birth}}
+                      {{form.date_of_birth.errors}}
+                      <label for="birthdayDate" class="form-label">Date of Birth</label>
+                    </div>
+  
+                  </div>
+                  <div class="col-md-6 mb-4">
+  
+                    <h6 class="mb-2 pb-1">Gender: </h6>
+  
+                    <div class="form-check form-check-inline">
+                      {{form.gender}}
+                      {{form.gender.errors}}
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-4 pb-2">
+    
+                      <div class="form-outline">
+                        {{form.student_fathers_name}}
+                        {{form.student_fathers_name.errors}}
+                        <label class="form-label" for="fathersName">Father's Name</label>
+                      </div>
+    
+                    </div>
+                    <div class="col-md-6 mb-4 pb-2">
+    
+                      <div class="form-outline">
+                        {{form.student_address}}
+                        {{form.student_address.errors}}
+                        <label class="form-label" for="studentAddress">Student Address</label>
+                      </div>
+    
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-6 mb-4 pb-2">
+    
+                      <div class="form-outline">
+                        {{form.academic_year}}
+                        {{form.academic_year.errors}}
+                        <label class="form-label" for="academicYear">Academic Year</label>
+                      </div>
+    
+                    </div>
+                    <div class="col-md-6 mb-4 pb-2">
+    
+                      <div class="form-outline">
+                        {{form.program}}
+                        {{form.program.errors}}
+                        <label class="form-label" for="program">Program</label>
+                      </div>
+    
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-6 mb-4 pb-2">
+    
+                      <div class="form-outline">
+                        {{form.passed_year}}
+                        {{form.passed_year.errors}}
+                        <label class="form-label" for="passYear">Passed Year</label>
+                      </div>
+    
+                    </div>
+                    <div class="col-md-6 mb-4 pb-2">
+    
+                      <div class="form-outline">
+                        {{form.secured_gpa}}
+                        {{form.secured_gpa.errors}}
+                        <label class="form-label" for="gpa">Secured GPA</label>
+                      </div>
+    
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-6 mb-4 pb-2">
+    
+                      <div class="form-outline">
+                        {{form.symbol_number}}
+                        {{form.symbol_number.errors}}
+                        <label class="form-label" for="symbolNum">Symbol Number</label>
+                      </div>
+    
+                    </div>
+                    <div class="col-md-6 mb-4 pb-2">
+    
+                      <div class="form-outline">
+                        {{form.registration_number}}
+                        {{form.registration_number.errors}}
+                        <label class="form-label" for="regNumber">Registration Number</label>
+                      </div>
+    
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6 mb-4 pb-2">
+    
+                      <div class="form-outline">
+                        {{form.issued_date}}
+                        {{form.issued_date.errors}}
+                        <label class="form-label" for="issueDate">Issue Date</label>
+                      </div>
+    
+                    </div>
+                  </div>
+
+  
+  
+                <div class="mt-4 pt-2">
+                  <input class="btn btn-primary btn-lg" type="submit" value="Submit" method="post" />
+                </div>
+  
+              </form>
+              <div class="mt-4 pt-2">
+                <a href="{% url 'landing' %}"><button class="btn btn-primary btn-lg" type="back">Back</button></a>
+              </div>
+                
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+   <!-- <form method="post">
     {% csrf_token %}
     <h1 class="mx-auto">Generate Certificate</h1>
         <div class="form-group">
@@ -12,6 +198,6 @@
             <button class="btn btn-primary btn-lg" type="submit" method="post">Create&#10132;</button>
           </div>
    </form>    
-   <a href="{% url 'landing' %}"><button class="btn btn-primary btn-lg">Back</button></a>
+   <a href="{% url 'landing' %}"><button class="btn btn-primary btn-lg">Back</button></a> -->
 
 {% endblock %}

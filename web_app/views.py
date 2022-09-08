@@ -76,7 +76,7 @@ class CertificateSearchView(View):
             ctx = {"image": data, "form": form}
 
             return render(request, "image.html", ctx)
-        except Exception as e:
-            print(e)
+        except Exception:
+            form.add_error("registration_number", "Invalid registration number")
             pass
         return render(request, "search.html", {"form": form})

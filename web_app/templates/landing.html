@@ -1,10 +1,18 @@
 {% extends 'base.html' %}
 {% block title %} Generate Certificate {% endblock %}
 {% block content %}
-
-<div class="buttons">
+<!-- <div class="d-grid gap-2 col-4 mx-auto">
+    <div class="col align-items-center " style="min-height: 100vh;">
+        
+    </div>
+</div> -->
+<div class="row">
+    <div class="d-flex col-md-8 offset-md-2 justify-content-center">
+      <h3>Welcome to the Certificate Generator!</h3>
+    </div>
+  </div>
+<div class="border d-flex align-items-center justify-content-center gap-2" style="height: 250px;">
     <a href="{% url 'create' %}"><button class="btn btn-primary">Create Certificate</button></a>
     <a href="{% url 'search' %}"><button class="btn btn-primary">Search Certificate</button></a>
-</div>
-
+  </div>
 {% endblock %}
