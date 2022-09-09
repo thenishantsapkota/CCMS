@@ -11,8 +11,7 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
     <title>{% block title %}{% endblock %}</title>
-    {% load static %}
-    <!-- <link rel="stylesheet" href="{% static 'css/styles.css' %}" /> -->
+
 </head>
 <body>
     <nav class="navbar navbar-light bg-light">
@@ -23,11 +22,15 @@
 
         <div class="row">
             <div class="col-sm-12 text-center">
+              {% if request.user.is_staff %}
+              <a href="/admin"><button class="btn btn-success btn-md">Admin</button></a>
+              {% endif %}
                 {% if request.user.is_authenticated %}
                 <a href="{% url 'logout' %}"><button class="btn btn-danger btn-md">Logout</button></a>
                 {% else %}
                 <a href="{% url 'login' %}"><button class="btn btn-primary btn-md">Login</button></a>
                 {% endif %}
+
              </div>
         </div>
       </nav>

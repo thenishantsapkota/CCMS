@@ -7,7 +7,6 @@ from ..forms import CertificateForm, CertificateSearch
 from web_app.utils.util import create_certificate
 
 
-
 class LandingView(View):
     def get(self, request):
         return render(request, "landing.html")
@@ -39,20 +38,20 @@ class CertificateView(View):
                 form.cleaned_data["date_of_birth"],
                 form.cleaned_data["symbol_number"],
                 form.cleaned_data["registration_number"],
-                form.cleaned_data["issued_date"],
+                new_model.issued_date,
             )
             new_model.certificate = (
-                f"media/certificate_{form.cleaned_data['registration_number']}.png"
+                f"media/certificate_{form.cleaned_data['registration_number']}.jpg"
             )
             new_model.save()
 
             with open(
-                f"media/certificate_{form.cleaned_data['registration_number']}.png",
+                f"media/certificate_{form.cleaned_data['registration_number']}.jpg",
                 "rb",
             ) as f:
                 data = base64.b64encode(f.read()).decode("utf-8")
 
-            ctx = {"image": data, "form": form, "title": "image"}
+            ctx = {"image": data, "form": form, "title": "image", "filename": f"certificate_{form.cleaned_data['registration_number']}.jpg"}
 
             return render(request, "image.html", ctx)
         return render(request, "index.html", {"form": form})
@@ -69,11 +68,11 @@ class CertificateSearchView(View):
         form = self.form(request.POST)
         try:
             with open(
-                f"media/certificate_{form.data.get('registration_number')}.png", "rb"
+                f"media/certificate_{form.data.get('registration_number')}.jpg", "rb"
             ) as f:
                 data = base64.b64encode(f.read()).decode("utf-8")
 
-            ctx = {"image": data, "form": form}
+            ctx = {"image": data, "form": form, "filename": f"certificate_{form.data.get('registration_number')}.jpg"}
 
             return render(request, "image.html", ctx)
         except Exception:

@@ -46,9 +46,6 @@ class CertificateForm(forms.ModelForm):
     registration_number = forms.CharField(
         widget=forms.TextInput({"class": "form-control form-control-lg"})
     )
-    issued_date = forms.CharField(
-        widget=forms.TextInput({"class": "form-control form-control-lg"})
-    )
 
     class Meta:
         model = Certificate
@@ -67,7 +64,6 @@ class CertificateForm(forms.ModelForm):
             "date_of_birth",
             "symbol_number",
             "registration_number",
-            "issued_date",
         ]
 
 

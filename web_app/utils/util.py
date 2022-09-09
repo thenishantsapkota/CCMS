@@ -1,3 +1,4 @@
+from hashlib import algorithms_available
 from PIL import Image, ImageFont, ImageDraw
 
 
@@ -17,6 +18,7 @@ def add_newline(string: str, number_of_words: int = 15) -> str:
 
 poppins_regular = ImageFont.truetype("fonts/regular.ttf", size=40)
 poppins_bold = ImageFont.truetype("fonts/bold.ttf", size=50)
+patrick = ImageFont.truetype("fonts/patrick.ttf", size=50)
 
 
 def create_certificate(
@@ -36,11 +38,11 @@ def create_certificate(
     registration_number: str,
     issued_date: str,
 ):
-    image = Image.open("images/certificate.png")
+    image = Image.open("images/certificate.jpg")
     draw = ImageDraw.Draw(image)
 
     draw.text(xy=(1000, 500), text=school_name, font=poppins_bold, fill=(0, 0, 0))
-    draw.text(xy=(1050, 580), text=school_address, font=poppins_regular, fill=(0, 0, 0))
+    draw.text(xy=(1100, 580), text=school_address, font=poppins_regular, fill=(0, 0, 0))
     draw.text(
         xy=(1150, 630),
         text="Estd: {}".format(established_date),
@@ -51,22 +53,23 @@ def create_certificate(
     draw.text(
         xy=(350, 830),
         text=add_newline(
-            f"This is to cerify that {student_name} is a bonafide student of the Academy from {school_name}. {'She' if gender=='female' else 'He'} passed the conducted by CTEVT in the year and has secured {secured_gpa} on a four point scale. According to the academy,{'her' if gender=='female' else 'his'} date of birth is {date_of_birth} . We certify that the student bears a good moral character."
-        ),
+            f"This is to cerify that {student_name}, {'daughter' if gender=='female' else 'son'} of {father_name} is an inhabitant of {student_address} is a bonafide student of the Academy from {school_name}. {'She' if gender=='female' else 'He'} passed the {program} conducted by CTEVT in the year {passed_year} B.S. and has secured {secured_gpa}. According to the academy, {'her' if gender=='female' else 'his'} date of birth is {date_of_birth} ."
+        ) + "\nWe certify that the student bears a good moral character.",
         font=poppins_regular,
+        spacing=10,
         fill=(0, 0, 0),
         align="center",
     )
 
     draw.text(
-        xy=(350, 1100),
+        xy=(350, 1200),
         text=f"Registration Number: {registration_number}",
         font=poppins_regular,
         fill=(0, 0, 0),
         align="left",
     )
     draw.text(
-        xy=(350, 1150),
+        xy=(350, 1250),
         text=f"Symbol Number: {symbol_number}",
         font=poppins_regular,
         fill=(0, 0, 0),
@@ -74,13 +77,11 @@ def create_certificate(
     )
 
     draw.text(
-        xy=(350, 1200),
+        xy=(350, 1300),
         text=f"Date of Issue: {issued_date}",
         font=poppins_regular,
         fill=(0, 0, 0),
         align="left",
     )
 
-    img = image.save(
-        f"media/certificate_{registration_number}.png"
-    )  # create_certificate()
+    img = image.save(f"media/certificate_{registration_number}.jpg")
