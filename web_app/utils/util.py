@@ -40,18 +40,21 @@ def create_certificate(
 ):
     image = Image.open("images/certificate.jpg")
     draw = ImageDraw.Draw(image)
+    x_coord = image.size[0] / 2
 
-    draw.text(xy=(1000, 500), text=school_name, font=poppins_bold, fill=(0, 0, 0))
-    draw.text(xy=(1100, 580), text=school_address, font=poppins_regular, fill=(0, 0, 0))
+    draw.text(xy=(x_coord, 500), text=school_name, font=poppins_bold, fill=(0, 0, 0), align="left", anchor="mm")
+    draw.text(xy=(x_coord, 580), text=school_address, font=poppins_regular, fill=(0, 0, 0), align="left", anchor="mm")
     draw.text(
-        xy=(1150, 630),
+        xy=(x_coord, 630),
         text="Estd: {}".format(established_date),
         font=poppins_regular,
         fill=(0, 0, 0),
+        align="left",
+        anchor="mm"
     )
 
     draw.text(
-        xy=(350, 830),
+        xy=(x_coord, 950),
         text=add_newline(
             f"This is to cerify that {student_name}, {'daughter' if gender=='female' else 'son'} of {father_name} is an inhabitant of {student_address} is a bonafide student of the Academy from {school_name}. {'She' if gender=='female' else 'He'} passed the {program} conducted by CTEVT in the year {passed_year} B.S. and has secured {secured_gpa}. According to the academy, {'her' if gender=='female' else 'his'} date of birth is {date_of_birth} ."
         ) + "\nWe certify that the student bears a good moral character.",
@@ -59,6 +62,7 @@ def create_certificate(
         spacing=10,
         fill=(0, 0, 0),
         align="center",
+        anchor="mm"
     )
 
     draw.text(
