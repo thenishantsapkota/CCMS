@@ -1,6 +1,9 @@
 import base64
+import os
 from django.shortcuts import render
 from django.views import View
+from ..models import Certificate
+from os.path import exists
 
 
 from ..forms import CertificateForm, CertificateSearch
@@ -66,6 +69,32 @@ class CertificateSearchView(View):
 
     def post(self, request):
         form = self.form(request.POST)
+        model = Certificate.objects.filter(registration_number=form.data.get("registration_number"))
+        if not model.exists():
+            try:
+                os.system(f"rm media/certificate_{form.data.get('registration_number')}.jpg")
+            except Exception:
+                pass
+        if model.exists() and not exists(f"media/certificate_{form.data.get('registration_number')}.jpg"):
+            data = model.first()
+            create_certificate(
+                data.school_name,
+                data.school_address,
+                data.established_date,
+                data.gender,
+                data.student_name,
+                data.student_fathers_name,
+                data.student_address,
+                data.academic_year,
+                data.program,
+                data.passed_year,
+                data.secured_gpa,
+                data.date_of_birth,
+                data.symbol_number,
+                data.registration_number,
+                data.issued_date,
+            )
+
         try:
             with open(
                 f"media/certificate_{form.data.get('registration_number')}.jpg", "rb"
