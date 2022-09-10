@@ -49,12 +49,13 @@
     alertify.success('{{message}}');
     </script>
      {% endfor %}
-    
+     {% if 'login' not in request.path%}
     <footer class="text-center text-lg-start bg-light text-muted mt-auto fixed-bottom ">
       <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
         Developed with ❤️ by:
         <a class="text-reset fw-bold" href="https://snishant.com.np">Nishant Sapkota</a>
       </div>
     </footer>
+    {% endif %}
 </body>
 </html>

@@ -1,19 +1,6 @@
 {% extends 'base.html' %}
 {% block title %} Generate Certificate {% endblock %}
 {% block content %}
-<!-- <div class="d-grid gap-2 col-4 mx-auto">
-    <div class="col align-items-center " style="min-height: 100vh;">
-        
-    </div>
-</div> -->
-<!-- <div class="p-5 mb-4 bg-light rounded-3">
-  <div class="container-fluid py-5">
-    <h3 class="display-5 fw-bold">Hello {{request.user.username}}</h3>
-    <p class="col-md-8 fs-4 ">Welcome to Character Certificate Management System</p>
-    <a href="{% url 'create' %}"><button class="btn btn-primary btn-lg">Create Certificate</button></a>  
-    <a href="{% url 'search' %}"><button class="btn btn-primary btn-lg">Search Certificate</button></a>
-  </div>
-</div> -->
 <div class="px-4 py-5 my-5 text-center">
   <img class="d-block mx-auto mb-4" src="https://soe.mbman.edu.np/wp-content/uploads/2022/08/download-removebg-preview.png" alt="" width="100" height="100">
   <h1 class="display-5 fw-bold">Hello {{request.user.username | capfirst}}!</h1>
