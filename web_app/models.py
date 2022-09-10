@@ -9,7 +9,6 @@ class GenderChoices(models.TextChoices):
     male = ("male", "Male")
     female = ("female", "Female")
 
-
 # Create your models here.
 class Certificate(models.Model):
     school_name = models.CharField(max_length=200)

@@ -37,7 +37,7 @@ class CertificateForm(forms.ModelForm):
     )
     date_of_birth = forms.DateField(
         widget=forms.DateInput(
-            {"class": "form-control form-control-lg"}, format=("%d-%m-%Y")
+            {"class": "form-control form-control-lg", "id": "nepali-datepicker"}, format=("%d-%m-%Y")
         )
     )
     symbol_number = forms.CharField(

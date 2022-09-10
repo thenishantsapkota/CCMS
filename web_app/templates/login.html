@@ -1,15 +1,15 @@
 {% extends 'base.html' %}
 {% block title %} Login -  Certificate Generator {% endblock %}
 {% block content %}
-<section class="vh-100">
+<section class="vh-100 text-center">
     <div class="container py-5 h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-          <div class="card shadow-2-strong" style="border-radius: 1rem;">
+          <div class="card shadow-2-strong" style="border-radius: 2rem;border-color: black;">
             <div class="card-body p-5 text-center">
-  
-              <h3 class="mb-5">Sign in</h3>
-              <form method="post">
+              <img class="mb-2" src="https://soe.mbman.edu.np/wp-content/uploads/2022/08/download-removebg-preview.png" alt="" width="72" height="72">
+              <h3 class="mb-5">Login</h3>
+              <form method="post" class="form-signin">
                 {% csrf_token %}
               <div class="form-outline mb-4">
                   <label class="form-label" for="typeEmailX-2">Username</label>
