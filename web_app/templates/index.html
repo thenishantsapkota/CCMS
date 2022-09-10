@@ -68,11 +68,11 @@
                   </div>
                   <div class="col-md-6 mb-4">
   
-                    <h6 class="mb-2 pb-1">Gender: </h6>
-  
-                    <div class="form-check form-check-inline">
+                    
+                    <div class="form-outline">
                       {{form.gender}}
                       {{form.gender.errors}}
+                      <label for="gender" class="form-label">Gender</label>
                     </div>
                   </div>
                 </div>
@@ -161,12 +161,9 @@
                   </div>
                 <div class="mt-4 pt-2">
                   <input class="btn btn-primary btn-lg" type="submit" value="Submit" method="post" />
+                  <a href="{% url 'landing' %}"><button class="btn btn-primary btn-lg" type="button">Back</button></a>
                 </div>
-  
               </form>
-              <div class="mt-4 pt-2">
-                <a href="{% url 'landing' %}"><button class="btn btn-primary btn-lg" type="back">Back</button></a>
-              </div>
                 
             </div>
           </div>
@@ -177,7 +174,7 @@
   <script type="text/javascript">
       window.onload = function() {
           var mainInput = document.getElementById("nepali-datepicker");
-          mainInput.nepaliDatePicker({ndpYear: true,ndpMonth: true,ndpYearCount: 100, language: "english", readOnlyInput:true});
+          mainInput.nepaliDatePicker({ndpYear: true,ndpMonth: true,ndpYearCount: 100, language: "english"});
       };
   </script>
   </section>

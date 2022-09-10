@@ -16,9 +16,12 @@ class LoginView(View):
         form = self.form(request.POST)
         username = form.data.get("username")
         password = form.data.get("password")
+        remember_me = form.data.get("remember_me")
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
+            if not remember_me:
+                request.session.set_expiry(0)
             messages.success(request, "Logged in successfully!")
             return redirect("/")
         form.add_error("password", "Invalid username or password")

@@ -5,9 +5,11 @@ from django.db.models.signals import post_delete
 from django.dispatch import receiver
 from nepali_datetime import date
 
+
 class GenderChoices(models.TextChoices):
     male = ("male", "Male")
     female = ("female", "Female")
+
 
 # Create your models here.
 class Certificate(models.Model):
@@ -25,7 +27,9 @@ class Certificate(models.Model):
     date_of_birth = models.DateField()
     symbol_number = models.CharField(max_length=200)
     registration_number = models.CharField(max_length=200, unique=True)
-    issued_date = models.CharField(max_length=200,default=date.today().__str__(), null=True)    
+    issued_date = models.CharField(
+        max_length=200, default=date.today().__str__(), null=True
+    )
 
     certificate = VersatileImageField(upload_to="media/", null=True)
 

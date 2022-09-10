@@ -54,7 +54,12 @@ class CertificateView(View):
             ) as f:
                 data = base64.b64encode(f.read()).decode("utf-8")
 
-            ctx = {"image": data, "form": form, "title": "image", "filename": f"certificate_{form.cleaned_data['registration_number']}.jpg"}
+            ctx = {
+                "image": data,
+                "form": form,
+                "title": "image",
+                "filename": f"certificate_{form.cleaned_data['registration_number']}.jpg",
+            }
 
             return render(request, "image.html", ctx)
         return render(request, "index.html", {"form": form})
@@ -69,13 +74,19 @@ class CertificateSearchView(View):
 
     def post(self, request):
         form = self.form(request.POST)
-        model = Certificate.objects.filter(registration_number=form.data.get("registration_number"))
+        model = Certificate.objects.filter(
+            registration_number=form.data.get("registration_number")
+        )
         if not model.exists():
             try:
-                os.system(f"rm media/certificate_{form.data.get('registration_number')}.jpg")
+                os.system(
+                    f"rm media/certificate_{form.data.get('registration_number')}.jpg"
+                )
             except Exception:
                 pass
-        if model.exists() and not exists(f"media/certificate_{form.data.get('registration_number')}.jpg"):
+        if model.exists() and not exists(
+            f"media/certificate_{form.data.get('registration_number')}.jpg"
+        ):
             data = model.first()
             create_certificate(
                 data.school_name,
@@ -101,7 +112,11 @@ class CertificateSearchView(View):
             ) as f:
                 data = base64.b64encode(f.read()).decode("utf-8")
 
-            ctx = {"image": data, "form": form, "filename": f"certificate_{form.data.get('registration_number')}.jpg"}
+            ctx = {
+                "image": data,
+                "form": form,
+                "filename": f"certificate_{form.data.get('registration_number')}.jpg",
+            }
 
             return render(request, "image.html", ctx)
         except Exception:

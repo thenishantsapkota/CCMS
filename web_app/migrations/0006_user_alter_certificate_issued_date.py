@@ -6,28 +6,41 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('web_app', '0005_alter_certificate_issued_date'),
+        ("web_app", "0005_alter_certificate_issued_date"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='User',
+            name="User",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('password', models.CharField(max_length=128, verbose_name='password')),
-                ('last_login', models.DateTimeField(blank=True, null=True, verbose_name='last login')),
-                ('username', models.CharField(max_length=255, unique=True)),
-                ('institute_name', models.CharField(max_length=255, null=True)),
-                ('admin', models.BooleanField(default=False)),
-                ('staff', models.BooleanField(default=False)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("password", models.CharField(max_length=128, verbose_name="password")),
+                (
+                    "last_login",
+                    models.DateTimeField(
+                        blank=True, null=True, verbose_name="last login"
+                    ),
+                ),
+                ("username", models.CharField(max_length=255, unique=True)),
+                ("institute_name", models.CharField(max_length=255, null=True)),
+                ("admin", models.BooleanField(default=False)),
+                ("staff", models.BooleanField(default=False)),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
         migrations.AlterField(
-            model_name='certificate',
-            name='issued_date',
-            field=models.CharField(default='2079-05-25', max_length=200, null=True),
+            model_name="certificate",
+            name="issued_date",
+            field=models.CharField(default="2079-05-25", max_length=200, null=True),
         ),
     ]

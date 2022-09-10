@@ -4,4 +4,4 @@ from web_app.models import Certificate
 
 # Register your models here.
 
-admin.site.register(Certificate)  
+admin.site.register(Certificate)
