@@ -16,19 +16,19 @@
 </head>
 <body>
     {% if 'login' not in request.path%}
-    <nav class="navbar navbar-light bg-light">
+    <nav class="navbar navbar-dark bg-dark">
         <a class="navbar-brand" href="{% url 'landing' %}">
-          Certificate Generator
+          <img src="https://soe.mbman.edu.np/wp-content/uploads/2022/08/download-removebg-preview.png" width="30" height="30" alt="" class="d-inline-block align-top"> Certificate Generator
         </a>
     
 
         <div class="row">
             <div class="col-sm-12 text-center">
               {% if request.user.is_staff %}
-              <a href="/admin"><button class="btn btn-success btn-md">Admin</button></a>
+              <a href="/admin"><button class="btn btn-primary btn-md">Admin</button></a>
               {% endif %}
                 {% if request.user.is_authenticated %}
-                <a href="{% url 'logout' %}"><button class="btn btn-danger btn-md">Logout</button></a>
+                <a href="{% url 'logout' %}"><button class="btn btn-outline-secondary btn-md text-white">Logout</button></a>
                 {% else %}
                 <a href="{% url 'login' %}"><button class="btn btn-primary btn-md">Login</button></a>
                 {% endif %}

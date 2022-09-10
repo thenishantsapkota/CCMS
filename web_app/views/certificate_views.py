@@ -26,6 +26,7 @@ class CertificateView(View):
         form = self.form(request.POST)
         if form.is_valid():
             new_model = form.save()
+            certificate_path = f"certificate_{form.cleaned_data['registration_number']}.jpg"
             create_certificate(
                 form.cleaned_data["school_name"],
                 form.cleaned_data["school_address"],
@@ -43,13 +44,11 @@ class CertificateView(View):
                 form.cleaned_data["registration_number"],
                 new_model.issued_date,
             )
-            new_model.certificate = (
-                f"media/certificate_{form.cleaned_data['registration_number']}.jpg"
-            )
+            new_model.certificate = certificate_path
             new_model.save()
 
             with open(
-                f"media/certificate_{form.cleaned_data['registration_number']}.jpg",
+                f"media/{certificate_path}",
                 "rb",
             ) as f:
                 data = base64.b64encode(f.read()).decode("utf-8")
@@ -58,7 +57,7 @@ class CertificateView(View):
                 "image": data,
                 "form": form,
                 "title": "image",
-                "filename": f"certificate_{form.cleaned_data['registration_number']}.jpg",
+                "filename": certificate_path,
             }
 
             return render(request, "image.html", ctx)
@@ -74,18 +73,19 @@ class CertificateSearchView(View):
 
     def post(self, request):
         form = self.form(request.POST)
+        certificate_path = f"certificate_{form.data.get('registration_number')}.jpg"
         model = Certificate.objects.filter(
             registration_number=form.data.get("registration_number")
         )
         if not model.exists():
             try:
                 os.system(
-                    f"rm media/certificate_{form.data.get('registration_number')}.jpg"
+                    f"rm media/{certificate_path}"
                 )
             except Exception:
                 pass
         if model.exists() and not exists(
-            f"media/certificate_{form.data.get('registration_number')}.jpg"
+            f"media/{certificate_path}"
         ):
             data = model.first()
             create_certificate(
@@ -108,14 +108,14 @@ class CertificateSearchView(View):
 
         try:
             with open(
-                f"media/certificate_{form.data.get('registration_number')}.jpg", "rb"
+                f"media/{certificate_path}", "rb"
             ) as f:
                 data = base64.b64encode(f.read()).decode("utf-8")
 
             ctx = {
                 "image": data,
                 "form": form,
-                "filename": f"certificate_{form.data.get('registration_number')}.jpg",
+                "filename": certificate_path,
             }
 
             return render(request, "image.html", ctx)
