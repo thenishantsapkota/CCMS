@@ -1,4 +1,4 @@
-from hashlib import algorithms_available
+from nepali_datetime import date, datetime
 from PIL import Image, ImageFont, ImageDraw
 
 
@@ -38,6 +38,16 @@ def create_certificate(
     registration_number: str,
     issued_date: str,
 ):
+    split_issue_date = (datetime.strptime(issued_date, "%Y-%m-%d")).to_datetime_date().__str__().split("-")
+    ad_issue_date = "-".join(split_issue_date[::-1])
+
+    split_date_of_birth = (datetime.strptime(date_of_birth.__str__(),  "%Y-%m-%d")).to_datetime_date().__str__().split("-")
+    ad_dob = "-".join(split_date_of_birth[::-1])
+    
+    date = date_of_birth.__str__().split("-")
+    dob = "-".join(date[::-1])
+    date2 = issued_date.split("-")
+    issue_date = "-".join(date2[::-1])
     image = Image.open("images/certificate.jpg")
     draw = ImageDraw.Draw(image)
     x_coord = image.size[0] / 2
@@ -68,11 +78,11 @@ def create_certificate(
     )
 
     draw.text(
-        xy=(x_coord, 950),
+        xy=(x_coord, 970),
         text=add_newline(
-            f"This is to cerify that {student_name}, {'daughter' if gender=='female' else 'son'} of {father_name} is an inhabitant of {student_address} is a bonafide student of the Academy from {school_name}. {'She' if gender=='female' else 'He'} passed the {program} conducted by CTEVT in the year {passed_year} B.S. and has secured {secured_gpa}. According to the academy, {'her' if gender=='female' else 'his'} date of birth is {date_of_birth} ."
+            f"This is to cerify that {'Mr.' if gender=='male' else 'Ms.'} {student_name}, {'daughter' if gender=='female' else 'son'} of Mr. {father_name} is an inhabitant of {student_address} is a bonafide student of the academy. {'She' if gender=='female' else 'He'} passed the examination of {program} conducted by CTEVT in the year {passed_year} B.S. and secured {secured_gpa}. According to the academy, {'her' if gender=='female' else 'his'} date of birth is {dob} B.S.({ad_dob} A.D.)."
         )
-        + "\nWe certify that the student bears a good moral character.",
+        + f"\nWe certify {'she' if gender=='female' else 'he'} bears a good moral character.",
         font=poppins_regular,
         spacing=10,
         fill=(0, 0, 0),
@@ -97,7 +107,7 @@ def create_certificate(
 
     draw.text(
         xy=(350, 1300),
-        text=f"Date of Issue: {issued_date}",
+        text=f"Date of Issue: {issue_date} B.S.({ad_issue_date} A.D.)",
         font=poppins_regular,
         fill=(0, 0, 0),
         align="left",
