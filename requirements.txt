@@ -1,0 +1,8 @@
+asgiref==3.5.2 ; python_version >= "3.10" and python_version < "4.0"
+django-versatileimagefield==2.2 ; python_version >= "3.10" and python_version < "4.0"
+django==4.1.1 ; python_version >= "3.10" and python_version < "4.0"
+nepali-datetime==1.0.7 ; python_version >= "3.10" and python_version < "4.0"
+pillow==9.2.0 ; python_version >= "3.10" and python_version < "4.0"
+python-magic==0.4.27 ; python_version >= "3.10" and python_version < "4.0"
+sqlparse==0.4.2 ; python_version >= "3.10" and python_version < "4.0"
+tzdata==2022.2 ; python_version >= "3.10" and python_version < "4.0" and sys_platform == "win32"
