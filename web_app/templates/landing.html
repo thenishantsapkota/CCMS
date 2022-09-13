@@ -1,22 +1,33 @@
-{% extends 'base.html' %}
-{% block title %} Generate Certificate {% endblock %}
+{% extends 'base.html' %} {% block title %} Generate Certificate {% endblock %}
 {% block content %}
 <div class="px-4 py-5 my-5 text-center">
-  <img class="d-block mx-auto mb-4" src="https://soe.mbman.edu.np/wp-content/uploads/2022/08/download-removebg-preview.png" alt="" width="100" height="100">
+  {% if request.user.avatar %}
+  <img src="/media/{{request.user.avatar}}" alt="avatar"
+                class="rounded-circle img-fluid" style="width: 150px;">
+  {% endif %}
   <h2 class="display-5 fw-bold">Hi, {{request.user.username | capfirst}}!</h2>
   <div class="col-lg-6 mx-auto">
     <p class="lead mb-4">Welcome to Character Certificate Management System</p>
     <div class="d-grid gap-5 d-sm-flex justify-content-sm-center">
-      <a href="{% url 'create' %}"><button class="btn btn-primary btn-lg px-4 me-sm-3 mb-4 mr-3">Create Certificate</button></a>
-      <a href="{% url 'search' %}"><button class="btn btn-outline-secondary btn-lg px-4 mr-3">Search Certificate</button></a>
+      <a href="{% url 'create' %}"
+        ><button class="btn btn-primary btn-lg px-4 me-sm-3 mb-4 mr-3">
+          Create Certificate
+        </button></a
+      >
+      <a href="{% url 'search' %}"
+        ><button class="btn btn-outline-secondary btn-lg px-4 mr-3">
+          Search Certificate
+        </button></a
+      >
     </div>
   </div>
 </div>
 {% if 'login' not in request.path%}
-    <footer class="text-center text-lg-start bg-light text-muted mt-auto fixed-bottom ">
-      <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
-        Developed by IT Department | © MBMAN
-      </div>
-    </footer>
-    {% endif %}
-{% endblock %}
+<footer
+  class="text-center text-lg-start bg-light text-muted mt-auto fixed-bottom"
+>
+  <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05)">
+    Developed with ❤️ by © <a href="https://snishant.com.np">Nishant Sapkota</a>
+  </div>
+</footer>
+{% endif %} {% endblock %}

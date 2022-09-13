@@ -1,182 +1,191 @@
-{% extends 'base.html' %}
-{% block title %} Create Certificate {% endblock %}
-{% block content %}
+{% extends 'base.html' %} 
+{% block title %} Create Certificate {% endblock %} 
+{%block content %}
 <section class="vh-100 gradient-custom">
-    <div class="container py-5 h-100">
-      <div class="row justify-content-center align-items-center h-100">
-        <div class="col-12 col-lg-9 col-xl-7">
-          <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
-            <div class="card-body p-4 p-md-5">
-              <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Generate Character Certificate</h3>
-              
-              
-              <form method="post">
-                {% csrf_token %}
-  
-                <div class="row">
-                  <div class="col-md-6 mb-2">
-  
-                    <div class="form-outline">
-                      {{form.school_name}}
-                      {{form.school_name.errors}}
+  <div class="container py-5 h-100">
+    <div class="row justify-content-center align-items-center h-100">
+      <div class="col-12 col-lg-9 col-xl-7">
+        <div
+          class="card shadow-2-strong card-registration"
+          style="border-radius: 15px"
+        >
+          <div class="card-body p-4 p-md-5">
+            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">
+              Generate Character Certificate
+            </h3>
 
-                      <label class="form-label" for="firstName">School's Name</label>
-                    </div>
-  
-                  </div>
-                  <div class="col-md-6 mb-2">
-  
-                    <div class="form-outline">
-                      {{form.school_address}}
-                      {{form.school_address.errors}}
-                      <label class="form-label" for="lastName">School Address</label>
-                    </div>
-  
+            <form method="post">
+              {% csrf_token %}
+
+              <div class="row">
+                <div class="col-md-6 mb-2">
+                  <div class="form-outline">
+                    {{form.school_name}} {{form.school_name.errors}}
+
+                    <label class="form-label" for="firstName"
+                      >School's Name</label
+                    >
                   </div>
                 </div>
-
-                <div class="row">
-                    <div class="col-md-6 mb-4 pb-2">
-    
-                      <div class="form-outline">
-                        {{form.established_date}}
-                        {{form.established_date.errors}}
-                        <label class="form-label" for="emailAddress">School Estd Date(in BS)</label>
-                      </div>
-    
-                    </div>
-                    <div class="col-md-6 mb-4 pb-2">
-    
-                      <div class="form-outline">
-                        {{form.student_name}}
-                        {{form.student_name.errors}}
-                        <label class="form-label" for="phoneNumber">Student's Name</label>
-                      </div>
-    
-                    </div>
-                  </div>
-  
-                <div class="row">
-                  <div class="col-md-6 mb-4 d-flex align-items-center">
-  
-                    <div class="form-outline">
-                      {{form.date_of_birth}}
-                      {{form.date_of_birth.errors}}
-                      <label for="birthdayDate" class="form-label">Date of Birth(in BS)</label>
-                    </div>
-  
-                  </div>
-                  <div class="col-md-6 mb-4">
-  
-                    
-                    <div class="form-outline">
-                      {{form.gender}}
-                      {{form.gender.errors}}
-                      <label for="gender" class="form-label">Gender</label>
-                    </div>
+                <div class="col-md-6 mb-2">
+                  <div class="form-outline">
+                    {{form.school_address}} {{form.school_address.errors}}
+                    <label class="form-label" for="lastName"
+                      >School Address</label
+                    >
                   </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-6 mb-4 pb-2">
-    
-                      <div class="form-outline">
-                        {{form.student_fathers_name}}
-                        {{form.student_fathers_name.errors}}
-                        <label class="form-label" for="fathersName">Father's Name</label>
-                      </div>
-    
-                    </div>
-                    <div class="col-md-6 mb-4 pb-2">
-    
-                      <div class="form-outline">
-                        {{form.student_address}}
-                        {{form.student_address.errors}}
-                        <label class="form-label" for="studentAddress">Student Address</label>
-                      </div>
-    
-                    </div>
-                  </div>
+              </div>
 
-                  <div class="row">
-                    <div class="col-md-6 mb-4 pb-2">
-    
-                      <div class="form-outline">
-                        {{form.academic_year}}
-                        {{form.academic_year.errors}}
-                        <label class="form-label" for="academicYear">Academic Year(in BS)</label>
-                      </div>
-    
-                    </div>
-                    <div class="col-md-6 mb-4 pb-2">
-    
-                      <div class="form-outline">
-                        {{form.program}}
-                        {{form.program.errors}}
-                        <label class="form-label" for="program">Program</label>
-                      </div>
-    
-                    </div>
+              <div class="row">
+                <div class="col-md-6 mb-4 pb-2">
+                  <div class="form-outline">
+                    {{form.established_date}} {{form.established_date.errors}}
+                    <label class="form-label" for="emailAddress"
+                      >School Estd Date(in BS)</label
+                    >
                   </div>
-
-                  <div class="row">
-                    <div class="col-md-6 mb-4 pb-2">
-    
-                      <div class="form-outline">
-                        {{form.passed_year}}
-                        {{form.passed_year.errors}}
-                        <label class="form-label" for="passYear">Passed Year(in BS)</label>
-                      </div>
-    
-                    </div>
-                    <div class="col-md-6 mb-4 pb-2">
-    
-                      <div class="form-outline">
-                        {{form.secured_gpa}}
-                        {{form.secured_gpa.errors}}
-                        <label class="form-label" for="gpa">Secured GPA</label>
-                      </div>
-    
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-md-6 mb-4 pb-2">
-    
-                      <div class="form-outline">
-                        {{form.symbol_number}}
-                        {{form.symbol_number.errors}}
-                        <label class="form-label" for="symbolNum">Symbol Number</label>
-                      </div>
-    
-                    </div>
-                    <div class="col-md-6 mb-4 pb-2">
-    
-                      <div class="form-outline">
-                        {{form.registration_number}}
-                        {{form.registration_number.errors}}
-                        <label class="form-label" for="regNumber">Registration Number</label>
-                      </div>
-    
-                    </div>
-                  </div>
-                <div class="mt-4 pt-2">
-                  <input class="btn btn-primary btn-lg" type="submit" value="Submit" method="post" />
-                  <a href="{% url 'landing' %}"><button class="btn btn-primary btn-lg" type="button">Back</button></a>
                 </div>
-              </form>
-                
-            </div>
+                <div class="col-md-6 mb-4 pb-2">
+                  <div class="form-outline">
+                    {{form.student_name}} {{form.student_name.errors}}
+                    <label class="form-label" for="phoneNumber"
+                      >Student's Name</label
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-4 d-flex align-items-center">
+                  <div class="form-outline">
+                    {{form.date_of_birth}} {{form.date_of_birth.errors}}
+                    <label for="birthdayDate" class="form-label"
+                      >Date of Birth(in BS)</label
+                    >
+                  </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                  <div class="form-outline">
+                    {{form.gender}} {{form.gender.errors}}
+                    <label for="gender" class="form-label">Gender</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 mb-4 pb-2">
+                  <div class="form-outline">
+                    {{form.student_fathers_name}}
+                    {{form.student_fathers_name.errors}}
+                    <label class="form-label" for="fathersName"
+                      >Father's Name</label
+                    >
+                  </div>
+                </div>
+                <div class="col-md-6 mb-4 pb-2">
+                  <div class="form-outline">
+                    {{form.student_address}} {{form.student_address.errors}}
+                    <label class="form-label" for="studentAddress"
+                      >Student Address</label
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-4 pb-2">
+                  <div class="form-outline">
+                    {{form.academic_year}} {{form.academic_year.errors}}
+                    <label class="form-label" for="academicYear"
+                      >Academic Year(in BS)</label
+                    >
+                  </div>
+                </div>
+                <div class="col-md-6 mb-4 pb-2">
+                  <div class="form-outline">
+                    {{form.program}} {{form.program.errors}}
+                    <label class="form-label" for="program">Program</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-4 pb-2">
+                  <div class="form-outline">
+                    {{form.passed_year}} {{form.passed_year.errors}}
+                    <label class="form-label" for="passYear"
+                      >Passed Year(in BS)</label
+                    >
+                  </div>
+                </div>
+                <div class="col-md-6 mb-4 pb-2">
+                  <div class="form-outline">
+                    {{form.secured_gpa}} {{form.secured_gpa.errors}}
+                    <label class="form-label" for="gpa">Secured GPA</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-4 pb-2">
+                  <div class="form-outline">
+                    {{form.symbol_number}} {{form.symbol_number.errors}}
+                    <label class="form-label" for="symbolNum"
+                      >Symbol Number</label
+                    >
+                  </div>
+                </div>
+                <div class="col-md-6 mb-4 pb-2">
+                  <div class="form-outline">
+                    {{form.registration_number}}
+                    {{form.registration_number.errors}}
+                    <label class="form-label" for="regNumber"
+                      >Registration Number</label
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 mb-4 pb-2">
+                  <div class="form-outline">
+                    {{form.exam_board}} {{form.exam_board.errors}}
+                    <label class="form-label" for="examBoard"
+                      >Exam Board</label
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="mt-4 pt-2">
+                <input
+                  class="btn btn-primary btn-lg"
+                  type="submit"
+                  value="Submit"
+                  method="post"
+                />
+                <a href="{% url 'landing' %}"
+                  ><button class="btn btn-primary btn-lg" type="button">
+                    Back
+                  </button></a
+                >
+              </div>
+            </form>
           </div>
         </div>
       </div>
     </div>
-  
+  </div>
+
   <script type="text/javascript">
-      window.onload = function() {
-          var mainInput = document.getElementById("nepali-datepicker");
-          mainInput.nepaliDatePicker({ndpYear: true,ndpMonth: true,ndpYearCount: 100, language: "english"});
-      };
+    window.onload = function () {
+      var mainInput = document.getElementById("nepali-datepicker");
+      mainInput.nepaliDatePicker({
+        ndpYear: true,
+        ndpMonth: true,
+        ndpYearCount: 100,
+        language: "english",
+      });
+    };
   </script>
-  </section>
+</section>
 
 {% endblock %}

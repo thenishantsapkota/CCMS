@@ -1,0 +1,79 @@
+{% extends 'base.html' %} 
+{% block title %} Profile - Certificate Generator{%endblock %} {% block content %}
+<section>
+    <div class="container py-5">
+  
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="card mb-4">
+            <div class="card-body text-center">
+                {% if request.user.avatar %}
+              <img src="/media/{{request.user.avatar}}" alt="avatar"
+                class="rounded-circle img-fluid" style="width: 150px;">
+                {% else %}
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
+              class="rounded-circle img-fluid" style="width: 150px;">
+                {% endif %}
+              <h5 class="my-3">{{request.user.get_full_name}}</h5>
+              <div class="d-flex justify-content-center mb-2">
+                <a href="{% url 'edit-profile' %}"><button type="button" class="btn btn-primary">Edit Profile</button></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8">
+          <div class="card mb-4">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Full Name</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{request.user.get_full_name}}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Username</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{request.user.username}}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Institute Name</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{request.user.institute_name}}</p>
+                </div>
+              </div>
+              {% if request.user.institute_logo and request.user.avatar %}
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Institute Logo</p>
+                </div>
+                <div class="col-sm-9">
+                    <a href="/media/{{request.user.institute_logo}}">Logo</a>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Avatar</p>
+                </div>
+                <div class="col-sm-9">
+                  <a href="/media/{{request.user.avatar}}">Avatar</a>
+                </div>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

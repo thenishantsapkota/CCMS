@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.views import View
 from ..models import Certificate
 from os.path import exists
+from django.db import transaction
 
 
 from ..forms import CertificateForm, CertificateSearch
@@ -22,12 +23,15 @@ class CertificateView(View):
         form = self.form()
         return render(request, "index.html", {"form": form})
 
+    @transaction.atomic
     def post(self, request):
         form = self.form(request.POST)
         if form.is_valid():
             new_model = form.save()
+            new_model.user_id = request.user.id
             certificate_path = f"certificate_{form.cleaned_data['registration_number']}.jpg"
             create_certificate(
+                request.user,
                 form.cleaned_data["school_name"],
                 form.cleaned_data["school_address"],
                 form.cleaned_data["established_date"],
@@ -43,6 +47,7 @@ class CertificateView(View):
                 form.cleaned_data["symbol_number"],
                 form.cleaned_data["registration_number"],
                 new_model.issued_date,
+                form.cleaned_data["exam_board"]
             )
             new_model.certificate = certificate_path
             new_model.save()
@@ -75,7 +80,7 @@ class CertificateSearchView(View):
         form = self.form(request.POST)
         certificate_path = f"certificate_{form.data.get('registration_number')}.jpg"
         model = Certificate.objects.filter(
-            registration_number=form.data.get("registration_number")
+            registration_number=form.data.get("registration_number"), user_id=request.user.id
         )
         if not model.exists():
             try:
@@ -89,6 +94,7 @@ class CertificateSearchView(View):
         ):
             data = model.first()
             create_certificate(
+                request.user,
                 data.school_name,
                 data.school_address,
                 data.established_date,
@@ -104,22 +110,27 @@ class CertificateSearchView(View):
                 data.symbol_number,
                 data.registration_number,
                 data.issued_date,
+                data.exam_board
             )
 
-        try:
-            with open(
-                f"media/{certificate_path}", "rb"
-            ) as f:
-                data = base64.b64encode(f.read()).decode("utf-8")
+        if model.exists():
+            try:
+                with open(
+                    f"media/{certificate_path}", "rb"
+                ) as f:
+                    data = base64.b64encode(f.read()).decode("utf-8")
 
-            ctx = {
-                "image": data,
-                "form": form,
-                "filename": certificate_path,
-            }
+                ctx = {
+                    "image": data,
+                    "form": form,
+                    "filename": certificate_path,
+                }
 
-            return render(request, "image.html", ctx)
-        except Exception:
-            form.add_error("registration_number", "Invalid registration number")
-            pass
+                return render(request, "image.html", ctx)
+            except Exception:
+                form.add_error("registration_number", "Invalid registration number")
+                pass
+        
+        form.add_error("registration_number", "Invalid registration number")
         return render(request, "search.html", {"form": form})
+

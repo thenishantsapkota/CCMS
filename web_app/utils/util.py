@@ -19,9 +19,11 @@ def add_newline(string: str, number_of_words: int = 15) -> str:
 poppins_regular = ImageFont.truetype("fonts/regular.ttf", size=40)
 poppins_bold = ImageFont.truetype("fonts/bold.ttf", size=50)
 patrick = ImageFont.truetype("fonts/patrick.ttf", size=50)
+revue = ImageFont.truetype("fonts/RevueBT.ttf", size=90)
 
 
 def create_certificate(
+    user,
     school_name: str,
     school_address: str,
     established_date: str,
@@ -37,20 +39,29 @@ def create_certificate(
     symbol_number: str,
     registration_number: str,
     issued_date: str,
+    exam_board: str
 ):
-    split_issue_date = (datetime.strptime(issued_date, "%Y-%m-%d")).to_datetime_date().__str__().split("-")
-    ad_issue_date = "-".join(split_issue_date[::-1])
+    ad_issue_date = (datetime.strptime(issued_date, "%Y-%m-%d")).to_datetime_date().strftime("%d-%m-%Y")
 
-    split_date_of_birth = (datetime.strptime(date_of_birth.__str__(),  "%Y-%m-%d")).to_datetime_date().__str__().split("-")
-    ad_dob = "-".join(split_date_of_birth[::-1])
+    ad_dob = (datetime.strptime(str(date_of_birth),  "%Y-%m-%d")).to_datetime_date().strftime("%d-%m-%Y")
     
-    date = date_of_birth.__str__().split("-")
-    dob = "-".join(date[::-1])
-    date2 = issued_date.split("-")
-    issue_date = "-".join(date2[::-1])
+    dob = str(date_of_birth.strftime("%d-%m-%Y"))
+    date = issued_date.split("-")
+    issue_date = "-".join(date[::-1])
     image = Image.open("images/certificate.jpg")
-    draw = ImageDraw.Draw(image)
+    logo = Image.open(f"./media/{user.institute_logo}").resize((216,231))
     x_coord = image.size[0] / 2
+    image.paste(logo, (int(x_coord-100), 120), logo)
+    draw = ImageDraw.Draw(image)
+
+    
+    draw.text(xy=(x_coord, 400),
+        text = user.institute_name,
+        font=revue,
+        fill=(0,0,0),
+        align="left",
+        anchor="mm"
+    )
 
     draw.text(
         xy=(x_coord, 500),
@@ -80,7 +91,7 @@ def create_certificate(
     draw.text(
         xy=(x_coord, 970),
         text=add_newline(
-            f"This is to cerify that {'Mr.' if gender=='male' else 'Ms.'} {student_name}, {'daughter' if gender=='female' else 'son'} of Mr. {father_name} is an inhabitant of {student_address} is a bonafide student of the academy. {'She' if gender=='female' else 'He'} passed the examination of {program} conducted by CTEVT in the year {passed_year} B.S. and secured {secured_gpa}. According to the academy, {'her' if gender=='female' else 'his'} date of birth is {dob} B.S.({ad_dob} A.D.)."
+            f"This is to cerify that {'Mr.' if gender=='male' else 'Ms.'} {student_name}, {'daughter' if gender=='female' else 'son'} of Mr. {father_name} is an inhabitant of {student_address} is a bonafide student of the academy. {'She' if gender=='female' else 'He'} passed the examination of {program} conducted by {exam_board} in the year {passed_year} B.S. and secured {secured_gpa}. According to the academy, {'her' if gender=='female' else 'his'} date of birth is {dob} B.S.({ad_dob} A.D.)."
         )
         + f"\nWe certify {'she' if gender=='female' else 'he'} bears a good moral character.",
         font=poppins_regular,
