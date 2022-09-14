@@ -57,6 +57,7 @@ class EditProfileView(View):
             user.first_name = form.data.get("first_name")
             user.last_name = form.data.get("last_name")
             user.institute_name = form.data.get("institute_name")
+            user.institute_address = form.data.get("institute_address")
             if logo := request.FILES.get("institute_logo"):
                 user.institute_logo = logo
             if avatar := request.FILES.get("avatar"):

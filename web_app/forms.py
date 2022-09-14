@@ -22,8 +22,8 @@ class StylishModelForm(forms.ModelForm):
 
 class CertificateForm(StylishModelForm):
 
-    school_name = forms.CharField(max_length=200)
-    school_address = forms.CharField(max_length=200)
+    school_name = forms.CharField(max_length=200, required=False)
+    school_address = forms.CharField(max_length=200, required=False)
     established_date = forms.CharField(max_length=200)
     gender = forms.Select()
     student_name = forms.CharField(max_length=200)
@@ -110,6 +110,9 @@ class ProfileForm(StylishForm):
     )
     institute_name = forms.CharField(
         max_length=200,
+    )
+    institute_address = forms.CharField(
+        max_length=200
     )
 
 

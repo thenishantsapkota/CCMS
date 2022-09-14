@@ -24,6 +24,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     institute_name = models.CharField(max_length=100, blank=True)
     institute_logo = models.ImageField(upload_to="logos/", blank=True)
+    institute_address = models.CharField(max_length=100, blank=True)
 
     USERNAME_FIELD = "username"
     REQUIRED_FIELDS = ["password"]

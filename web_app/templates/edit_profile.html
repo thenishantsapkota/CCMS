@@ -46,14 +46,14 @@
     
                       </div>
                     </div>
-                    <div class="col-md-6 mb-2">
-                        <label class="form-label" for="lastName"
-                          >Institute Logo<sub>(Must be Transparent PNG)</sub></label
-                        >
-                      <div class="form-outline">
-                        {{form.institute_logo}} {{form.institute_logo.errors}}
+                      <div class="col-md-6 mb-2">
+                          <label class="form-label" for="lastName"
+                            >Institute Address</label
+                          >
+                        <div class="form-outline">
+                          {{form.institute_address}} {{form.institute_address.errors}}
+                        </div>
                       </div>
-                    </div>
                   </div>
                   <div class="row">
                     <div class="col-md-6 mb-2">
@@ -64,6 +64,14 @@
                         {{form.avatar}} {{form.avatar.errors}}
                       </div>
                     </div>
+                      <div class="col-md-6 mb-2">
+                          <label class="form-label" for="lastName"
+                            >Institute Logo</label
+                          >
+                        <div class="form-outline">
+                          {{form.institute_logo}} {{form.institute_logo.errors}}
+                        </div>
+                      </div>
                 </div>
                 <div class="mt-4 pt-2">
                     <input

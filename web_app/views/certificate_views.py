@@ -34,8 +34,8 @@ class CertificateView(View):
             )
             create_certificate(
                 request.user,
-                form.cleaned_data["school_name"],
-                form.cleaned_data["school_address"],
+                form.cleaned_data["school_name"] or "",
+                form.cleaned_data["school_address"] or request.user.institute_address,
                 form.cleaned_data["established_date"],
                 form.cleaned_data["gender"],
                 form.cleaned_data["student_name"],
