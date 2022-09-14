@@ -5,11 +5,13 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import User
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
+
 class StylishForm(forms.Form):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         for field in self.fields.values():
             field.widget.attrs.update({"class": "form-control form-control-lg"})
+
 
 class StylishModelForm(forms.ModelForm):
     def __init__(self, *args, **kwargs) -> None:
@@ -55,7 +57,7 @@ class CertificateForm(StylishModelForm):
             "date_of_birth",
             "symbol_number",
             "registration_number",
-            "exam_board"
+            "exam_board",
         ]
 
 
@@ -71,7 +73,7 @@ class LoginUserForm(StylishForm):
         max_length=255,
         widget=forms.TextInput(
             {
-                "class": "form-control form-control-lg",    
+                "class": "form-control form-control-lg",
                 "placeholder": "Enter your username",
             }
         ),
@@ -91,18 +93,34 @@ class LoginUserForm(StylishForm):
         required=False, widget=forms.CheckboxInput({"class": "form-check-input"})
     )
 
+
 class ProfileForm(StylishForm):
-    avatar = forms.ImageField( required=False)
+    avatar = forms.ImageField(required=False)
     first_name = forms.CharField(max_length=200)
     last_name = forms.CharField(max_length=50)
-    institute_logo = forms.ImageField( required=False)
-    institute_name = forms.CharField(max_length=200,)
+    institute_logo = forms.ImageField(
+        required=False,
+        widget=forms.FileInput(
+            {
+                "accept": "image/png",
+                "name": "logoInstitute",
+                "onchange": "validateImageType()",
+            }
+        ),
+    )
+    institute_name = forms.CharField(
+        max_length=200,
+    )
+
 
 class UserCreationForm(forms.ModelForm):
     """A form for creating new users. Includes all the required
     fields, plus a repeated password."""
-    password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
-    password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
+
+    password1 = forms.CharField(label="Password", widget=forms.PasswordInput)
+    password2 = forms.CharField(
+        label="Password confirmation", widget=forms.PasswordInput
+    )
 
     class Meta:
         model = User
@@ -130,11 +148,12 @@ class UserChangeForm(forms.ModelForm):
     the user, but replaces the password field with admin's
     password hash display field.
     """
+
     password = ReadOnlyPasswordHashField()
 
     class Meta:
         model = User
-        fields = ('username', 'password', 'is_active', 'is_superuser')
+        fields = ("username", "password", "is_active", "is_superuser")
 
     def clean_password(self):
         # Regardless of what the user provides, return the initial value.

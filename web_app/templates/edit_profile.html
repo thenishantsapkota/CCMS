@@ -1,7 +1,7 @@
 {% extends 'base.html' %} 
 {% block title %} Create Certificate {% endblock %} 
 {%block content %}
-<section class="vh-100 gradient-custom">
+<section class="vh-100">
     <div class="container py-5 h-100">
       <div class="row justify-content-center align-items-center h-100">
         <div class="col-12 col-lg-9 col-xl-7">
@@ -48,7 +48,7 @@
                     </div>
                     <div class="col-md-6 mb-2">
                         <label class="form-label" for="lastName"
-                          >Institute Logo</label
+                          >Institute Logo<sub>(Must be Transparent PNG)</sub></label
                         >
                       <div class="form-outline">
                         {{form.institute_logo}} {{form.institute_logo.errors}}
@@ -85,4 +85,16 @@
 </div>
 </div>
   </section>
+
+<script type="text/javascript">
+  function validateImageType(){
+    var file = document.getElementById("id_institute_logo").value;
+    var idxDot = file.lastIndexOf(".") + 1;
+    var extension = file.substr(idxDot, file.length).toLowerCase();
+    if(!(extension == "png")){
+      alert("Only png files are allowed!");
+      location.reload();
+    }
+  }
+</script>
 {% endblock %}

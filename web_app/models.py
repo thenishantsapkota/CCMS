@@ -6,15 +6,17 @@ from django.contrib.auth.models import PermissionsMixin, AbstractBaseUser
 
 from .managers import UserManager
 
+
 class GenderChoices(models.TextChoices):
     male = ("male", "Male")
     female = ("female", "Female")
+
 
 class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
     avatar = models.ImageField(upload_to="profile/", blank=True)
-    username = models.CharField(max_length=100,unique=True)
+    username = models.CharField(max_length=100, unique=True)
     first_name = models.CharField(max_length=30, blank=True)
     last_name = models.CharField(max_length=30, blank=True)
     date_joined = models.DateTimeField(auto_now_add=True)
@@ -23,15 +25,12 @@ class User(AbstractBaseUser, PermissionsMixin):
     institute_name = models.CharField(max_length=100, blank=True)
     institute_logo = models.ImageField(upload_to="logos/", blank=True)
 
-
     USERNAME_FIELD = "username"
     REQUIRED_FIELDS = ["password"]
 
     @property
     def get_full_name(self):
         return self.first_name + " " + self.last_name
-
-
 
 
 # Create your models here.
@@ -60,6 +59,3 @@ class Certificate(models.Model):
 
     def __str__(self) -> str:
         return self.registration_number
-
-
-

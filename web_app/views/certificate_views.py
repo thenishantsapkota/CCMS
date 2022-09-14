@@ -29,7 +29,9 @@ class CertificateView(View):
         if form.is_valid():
             new_model = form.save()
             new_model.user_id = request.user.id
-            certificate_path = f"certificate_{form.cleaned_data['registration_number']}.jpg"
+            certificate_path = (
+                f"certificate_{form.cleaned_data['registration_number']}.jpg"
+            )
             create_certificate(
                 request.user,
                 form.cleaned_data["school_name"],
@@ -47,7 +49,7 @@ class CertificateView(View):
                 form.cleaned_data["symbol_number"],
                 form.cleaned_data["registration_number"],
                 new_model.issued_date,
-                form.cleaned_data["exam_board"]
+                form.cleaned_data["exam_board"],
             )
             new_model.certificate = certificate_path
             new_model.save()
@@ -80,18 +82,15 @@ class CertificateSearchView(View):
         form = self.form(request.POST)
         certificate_path = f"certificate_{form.data.get('registration_number')}.jpg"
         model = Certificate.objects.filter(
-            registration_number=form.data.get("registration_number"), user_id=request.user.id
+            registration_number=form.data.get("registration_number"),
+            user_id=request.user.id,
         )
         if not model.exists():
             try:
-                os.system(
-                    f"rm media/{certificate_path}"
-                )
+                os.system(f"rm media/{certificate_path}")
             except Exception:
                 pass
-        if model.exists() and not exists(
-            f"media/{certificate_path}"
-        ):
+        if model.exists() and not exists(f"media/{certificate_path}"):
             data = model.first()
             create_certificate(
                 request.user,
@@ -110,14 +109,12 @@ class CertificateSearchView(View):
                 data.symbol_number,
                 data.registration_number,
                 data.issued_date,
-                data.exam_board
+                data.exam_board,
             )
 
         if model.exists():
             try:
-                with open(
-                    f"media/{certificate_path}", "rb"
-                ) as f:
+                with open(f"media/{certificate_path}", "rb") as f:
                     data = base64.b64encode(f.read()).decode("utf-8")
 
                 ctx = {
@@ -130,7 +127,6 @@ class CertificateSearchView(View):
             except Exception:
                 form.add_error("registration_number", "Invalid registration number")
                 pass
-        
+
         form.add_error("registration_number", "Invalid registration number")
         return render(request, "search.html", {"form": form})
-

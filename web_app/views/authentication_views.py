@@ -37,6 +37,7 @@ class LogoutView(View):
         messages.success(request, "Logged out successfully!")
         return redirect("/login")
 
+
 class ProfileView(View):
     def get(self, request):
         return render(request, "profile.html")
@@ -44,10 +45,11 @@ class ProfileView(View):
 
 class EditProfileView(View):
     form = ProfileForm
+
     def get(self, request):
         form = self.form()
         return render(request, "edit_profile.html", {"form": form})
-    
+
     def post(self, request):
         form = self.form(request.POST, request.FILES)
         if form.is_valid():
@@ -60,8 +62,7 @@ class EditProfileView(View):
             if avatar := request.FILES.get("avatar"):
                 user.avatar = avatar
             user.save()
-            messages.success(request, 'Your profile is updated successfully')
+            messages.success(request, "Your profile is updated successfully")
             return redirect(to="profile")
-        
-        return render(request, "edit_profile.html", {"form": form})
 
+        return render(request, "edit_profile.html", {"form": form})

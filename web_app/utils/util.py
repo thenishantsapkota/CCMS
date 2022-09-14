@@ -17,7 +17,7 @@ def add_newline(string: str, number_of_words: int = 15) -> str:
 
 
 poppins_regular = ImageFont.truetype("fonts/regular.ttf", size=40)
-poppins_bold = ImageFont.truetype("fonts/bold.ttf", size=50)
+poppins_bold = ImageFont.truetype("fonts/bold.ttf", size=40)
 patrick = ImageFont.truetype("fonts/patrick.ttf", size=50)
 revue = ImageFont.truetype("fonts/RevueBT.ttf", size=90)
 
@@ -39,28 +39,36 @@ def create_certificate(
     symbol_number: str,
     registration_number: str,
     issued_date: str,
-    exam_board: str
+    exam_board: str,
 ):
-    ad_issue_date = (datetime.strptime(issued_date, "%Y-%m-%d")).to_datetime_date().strftime("%d-%m-%Y")
+    ad_issue_date = (
+        (datetime.strptime(issued_date, "%Y-%m-%d"))
+        .to_datetime_date()
+        .strftime("%d-%m-%Y")
+    )
 
-    ad_dob = (datetime.strptime(str(date_of_birth),  "%Y-%m-%d")).to_datetime_date().strftime("%d-%m-%Y")
-    
+    ad_dob = (
+        (datetime.strptime(str(date_of_birth), "%Y-%m-%d"))
+        .to_datetime_date()
+        .strftime("%d-%m-%Y")
+    )
+
     dob = str(date_of_birth.strftime("%d-%m-%Y"))
     date = issued_date.split("-")
     issue_date = "-".join(date[::-1])
     image = Image.open("images/certificate.jpg")
-    logo = Image.open(f"./media/{user.institute_logo}").resize((216,231))
+    logo = Image.open(f"./media/{user.institute_logo}").resize((216, 231))
     x_coord = image.size[0] / 2
-    image.paste(logo, (int(x_coord-100), 120), logo)
+    image.paste(logo, (int(x_coord - 100), 120), logo)
     draw = ImageDraw.Draw(image)
 
-    
-    draw.text(xy=(x_coord, 400),
-        text = user.institute_name,
+    draw.text(
+        xy=(x_coord, 400),
+        text=user.institute_name.upper(),
         font=revue,
-        fill=(0,0,0),
+        fill=(0, 0, 0),
         align="left",
-        anchor="mm"
+        anchor="mm",
     )
 
     draw.text(
@@ -88,40 +96,80 @@ def create_certificate(
         anchor="mm",
     )
 
-    draw.text(
-        xy=(x_coord, 970),
-        text=add_newline(
-            f"This is to cerify that {'Mr.' if gender=='male' else 'Ms.'} {student_name}, {'daughter' if gender=='female' else 'son'} of Mr. {father_name} is an inhabitant of {student_address} is a bonafide student of the academy. {'She' if gender=='female' else 'He'} passed the examination of {program} conducted by {exam_board} in the year {passed_year} B.S. and secured {secured_gpa}. According to the academy, {'her' if gender=='female' else 'his'} date of birth is {dob} B.S.({ad_dob} A.D.)."
-        )
-        + f"\nWe certify {'she' if gender=='female' else 'he'} bears a good moral character.",
-        font=poppins_regular,
-        spacing=10,
-        fill=(0, 0, 0),
-        align="center",
-        anchor="mm",
-    )
+    line_height = poppins_regular.getbbox("A")[3] + 4
+    y = 800
+    rows = [
+        [
+            (poppins_regular, "This is to certify that "),
+            (poppins_bold, f"{'Mr.' if gender=='male' else 'Ms.'} {student_name} "),
+            (poppins_regular, f"{'daughter' if gender=='female' else 'son'} of"),
+            (poppins_bold, f" Mr. {father_name}"),
+            (poppins_regular, " is"),
+        ],
+        [
+            (poppins_regular, " an inhabitant of "),
+            (poppins_bold, student_address),
+            (poppins_regular, f" and is a bonafide student of the academy."),
+        ],
+        [
+            (
+                poppins_regular,
+                f"{'She' if gender=='female' else 'He'} passed the examination of ",
+            ),
+            (poppins_bold, program),
+            (poppins_regular, f" conducted by {exam_board}"),
+        ],
+        [
+            (poppins_regular, f" in the year {passed_year} B.S."),
+            (poppins_regular, f" and secured "),
+            (poppins_bold, f"{secured_gpa}."),
+            (poppins_regular, " According to the academy, "),
+        ],
+        [
+            (
+                poppins_regular,
+                f"{'her' if gender=='female' else 'his'} date of birth is",
+            ),
+            (poppins_bold, f" {dob} B.S.({ad_dob} A.D.)."),
+        ],
+        [
+            (
+                poppins_regular,
+                f"We certify that {'she' if gender=='female' else 'he'} bears a good moral character.",
+            )
+        ],
+    ]
+    for row in rows:
+        row_length = sum(font.getlength(segment) for font, segment in row)
+        x = (image.size[0] - row_length) / 2
 
-    draw.text(
-        xy=(350, 1200),
-        text=f"Registration Number: {registration_number}",
-        font=poppins_regular,
-        fill=(0, 0, 0),
-        align="left",
-    )
-    draw.text(
-        xy=(350, 1250),
-        text=f"Symbol Number: {symbol_number}",
-        font=poppins_regular,
-        fill=(0, 0, 0),
-        align="left",
-    )
+        for font, segment in row:
+            draw.text((x, y), segment, fill="black", font=font, spacing=4)
+            x += font.getlength(segment)
 
-    draw.text(
-        xy=(350, 1300),
-        text=f"Date of Issue: {issue_date} B.S.({ad_issue_date} A.D.)",
-        font=poppins_regular,
-        fill=(0, 0, 0),
-        align="left",
-    )
+        y += line_height
+
+    symbols = [
+        [
+            (poppins_regular, "Registration Number: "),
+            (poppins_bold, registration_number),
+        ],
+        [(poppins_regular, "Symbol Number: "), (poppins_bold, symbol_number)],
+        [
+            (poppins_regular, "Date of Issue: "),
+            (poppins_bold, f"{issue_date} B.S.({ad_issue_date} A.D.)"),
+        ],
+    ]
+
+    y_coord = 1150
+    for row in symbols:
+        row_length = sum(font.getlength(segment) for font, segment in row)
+        x = (image.size[0] - row_length) / 2
+
+        for font, segment in row:
+            draw.text((x, y_coord), segment, fill="black", font=font, spacing=4)
+            x += font.getlength(segment)
+
+        y_coord += line_height
 
     img = image.save(f"media/certificate_{registration_number}.jpg")
