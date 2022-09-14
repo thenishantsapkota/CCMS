@@ -110,23 +110,25 @@ def create_certificate(
         [
             (poppins_regular, " an inhabitant of "),
             (square_dot, student_address),
-            (poppins_regular, f" and is a bonafide student of the academy."),
+             (poppins_regular, f" and is a bonafide student"),
         ],
         [
             (
                 poppins_regular,
-                f"{'She' if gender=='female' else 'He'} passed the examination of ",
+                f" of the academy.{'She' if gender=='female' else 'He'} passed the examination of ",
             ),
             (square_dot, program),
-            (poppins_regular, f" conducted by {exam_board}"),
         ],
         [
+            
+            (poppins_regular, f" conducted by "),
+            (square_dot, exam_board),
             (poppins_regular, f" in the year {passed_year} B.S."),
             (poppins_regular, f" and secured "),
             (square_dot, f"{secured_gpa}."),
-            (poppins_regular, " According to the academy, "),
         ],
         [
+            (poppins_regular, " According to the academy, "),
             (
                 poppins_regular,
                 f"{'her' if gender=='female' else 'his'} date of birth is",
@@ -146,9 +148,9 @@ def create_certificate(
 
         for font, segment in row:
             if font == square_dot:
-                draw.text((x, y+15), segment, fill="black", font=font, spacing=4)
+                draw.text((x, y+10), segment, fill="black", font=font,)
             else:
-                draw.text((x, y), segment, fill="black", font=font, spacing=4)
+                draw.text((x, y), segment, fill="black", font=font)
             x += font.getlength(segment)
 
         y += line_height

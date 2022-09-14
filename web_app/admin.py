@@ -34,6 +34,8 @@ class UserAdmin(BaseUserAdmin):
     ordering = ("username",)
     filter_horizontal = ()
 
+class CertificateAdmin(admin.ModelAdmin):
+    pass
 
 admin.site.register(User, UserAdmin)
-admin.site.register(Certificate)
+admin.site.register(Certificate, CertificateAdmin)

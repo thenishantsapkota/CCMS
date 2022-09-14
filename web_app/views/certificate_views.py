@@ -5,6 +5,7 @@ from django.views import View
 from ..models import Certificate
 from os.path import exists
 from django.db import transaction
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 
 from ..forms import CertificateForm, CertificateSearch
@@ -13,7 +14,16 @@ from web_app.utils.util import create_certificate
 
 class LandingView(View):
     def get(self, request):
-        return render(request, "landing.html")
+        certificate_list = Certificate.objects.filter(user_id=request.user.id).order_by("student_name")
+        paginator = Paginator(certificate_list, 5)
+        page_number = request.GET.get("page")
+        try:
+            certificates = paginator.get_page(page_number)
+        except PageNotAnInteger:
+            certificates = paginator.page(1)
+        except EmptyPage:
+            certificates = paginator.page(paginator.num_pages)
+        return render(request, "landing.html", {"certificates": certificates})
 
 
 class CertificateView(View):

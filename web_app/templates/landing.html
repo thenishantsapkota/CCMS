@@ -21,13 +21,62 @@
       >
     </div>
   </div>
+  {% if certificates %}
+  <hr>
+<div class="text-center">
+  <h3>List of Certificates</h3>
+  </div>
+<div class="row justify-content-center">
+  <div class="col-auto">
+    <table class="table table-responsive">
+      <thead>
+        <tr>
+            <th>Registration Number</th>
+            <th>Student's Name</th>
+            <th>Certificate</th>
+        </tr>
+    </thead>
+    <tbody>
+      {% for certificate in certificates %}
+      <tr>
+      <td>{{certificate.registration_number}}</td>
+      <td>{{certificate.student_name}}</td>
+      <td><a download="{{certificate.certificate}}" href="/media/{{certificate.certificate}}">Download</a></td>
+    </tr>
+      {% endfor %}
+    </tbody>
+    </table>
+    {% endif %}
+    {% if certificates.has_other_pages %}
+    <div class="btn-group" role="group" aria-label="Item pagination">
+        {% if certificates.has_previous %}
+            <a href="?page={{ certificates.previous_page_number }}" class="btn btn-outline-primary">&laquo;</a>
+        {% endif %}
+
+        {% for page_number in certificates.paginator.page_range %}
+            {% if certificates.number == page_number %}
+                <button class="btn btn-outline-primary active">
+                    <span>{{ page_number }} <span class="sr-only">(current)</span></span>
+                </button>
+            {% else %}
+                <a href="?page={{ page_number }}" class="btn btn-outline-primary">
+                    {{ page_number }}
+                </a>
+            {% endif %}
+        {% endfor %}
+
+        {% if certificates.has_next %}
+            <a href="?page={{ certificates.next_page_number }}" class="btn btn-outline-primary">&raquo;</a>
+        {% endif %}
+    </div>
+    {% endif %}
 </div>
 {% if 'login' not in request.path%}
 <footer
   class="text-center text-lg-start bg-light text-muted mt-auto fixed-bottom"
 >
   <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05)">
-    Developed with ❤️ by © <a href="https://snishant.com.np">Nishant Sapkota</a>
+    Developed with ❤️ by © BNS
   </div>
 </footer>
 {% endif %} {% endblock %}
