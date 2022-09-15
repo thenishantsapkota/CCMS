@@ -109,18 +109,19 @@ def create_certificate(
         [
             (poppins_regular, " an inhabitant of "),
             (poppins_bold, student_address),
-             (poppins_regular, f" and is a bonafide student"),
+        ],
+        [
+            (poppins_regular, f" and is a bonafide student of the academy. {'She' if gender=='female' else 'He'} passed the "),
         ],
         [
             (
                 poppins_regular,
-                f" of the academy.{'She' if gender=='female' else 'He'} passed the examination of ",
+                f"examination of ",
             ),
             (poppins_bold, program),
+            (poppins_regular, f" conducted by "),
         ],
         [
-            
-            (poppins_regular, f" conducted by "),
             (poppins_bold, exam_board),
             (poppins_regular, f" in the year {passed_year} B.S."),
             (poppins_regular, f" and secured "),
