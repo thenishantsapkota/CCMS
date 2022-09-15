@@ -3,6 +3,8 @@ from django.db import models
 from versatileimagefield.fields import VersatileImageField
 from nepali_datetime import date
 from django.contrib.auth.models import PermissionsMixin, AbstractBaseUser
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 from .managers import UserManager
 
@@ -22,9 +24,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     date_joined = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
-    institute_name = models.CharField(max_length=100, blank=True)
-    institute_logo = models.ImageField(upload_to="logos/", blank=True)
-    institute_address = models.CharField(max_length=100, blank=True)
 
     USERNAME_FIELD = "username"
     REQUIRED_FIELDS = ["password"]
@@ -32,6 +31,13 @@ class User(AbstractBaseUser, PermissionsMixin):
     @property
     def get_full_name(self):
         return self.first_name + " " + self.last_name
+    
+
+class Institute(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    institute_name = models.CharField(max_length=100, blank=True)
+    institute_logo = models.ImageField(upload_to="logos/", blank=True)
+    institute_address = models.CharField(max_length=100, blank=True)
 
 
 # Create your models here.
@@ -60,3 +66,30 @@ class Certificate(models.Model):
 
     def __str__(self) -> str:
         return self.registration_number
+
+@receiver(post_save, sender=User)
+def create_institute(sender, instance, created, **kwargs):
+    if created:
+        Institute.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_institute(sender, instance, created, **kwargs):
+    if created:
+        superuser = User.objects.filter(is_superuser=True).first()
+        instance.institute.institute_name = superuser.institute.institute_name
+        instance.institute.institute_logo = superuser.institute.institute_logo
+        instance.institute.institute_address = superuser.institute.institute_address
+
+        instance.institute.save()
+
+@receiver(post_save, sender=User)
+def update_institute(sender, instance, **kwargs):
+    institutes = Institute.objects.filter(user=instance)
+    superuser = User.objects.filter(is_superuser=True).first()
+
+    for institute in institutes:
+        institute.institute_name = superuser.institute.institute_name
+        institute.institute_logo = superuser.institute.institute_logo
+        institute.institute_address = superuser.institute.institute_address
+
+        institute.save()

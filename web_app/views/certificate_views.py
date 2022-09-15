@@ -45,7 +45,7 @@ class CertificateView(View):
             create_certificate(
                 request.user,
                 form.cleaned_data["school_name"] or "",
-                form.cleaned_data["school_address"] or request.user.institute_address,
+                form.cleaned_data["school_address"] or request.user.institute.institute_address,
                 form.cleaned_data["established_date"],
                 form.cleaned_data["gender"],
                 form.cleaned_data["student_name"],
@@ -91,10 +91,15 @@ class CertificateSearchView(View):
     def post(self, request):
         form = self.form(request.POST)
         certificate_path = f"certificate_{form.data.get('registration_number')}.jpg"
-        model = Certificate.objects.filter(
-            registration_number=form.data.get("registration_number"),
-            user_id=request.user.id,
-        )
+        if not request.user.is_superuser:
+            model = Certificate.objects.filter(
+                registration_number=form.data.get("registration_number"),
+                user_id=request.user.id,
+            )
+        else:
+            model = Certificate.objects.filter(
+                registration_number=form.data.get("registration_number")
+            )
         if not model.exists():
             try:
                 os.system(f"rm media/{certificate_path}")
@@ -105,7 +110,7 @@ class CertificateSearchView(View):
             create_certificate(
                 request.user,
                 data.school_name,
-                data.school_address,
+                data.school_address or request.user.institute.institute_address,
                 data.established_date,
                 data.gender,
                 data.student_name,

@@ -35,7 +35,7 @@
     <title>{% block title %}{% endblock %}</title>
   </head>
   <body>
-    {% if not request.user.institute_name and request.user.is_authenticated and not 'edit-profile' in request.path and not request.user.institute_logo %}
+    {% if not request.user.institute.institute_name and request.user.is_authenticated and not 'edit-profile' in request.path and not request.user.institute.institute_logo %}
   <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
@@ -60,9 +60,9 @@
     {% if 'login' not in request.path %}
     <nav class="navbar navbar-dark bg-dark">
       <a class="navbar-brand" href="{% url 'landing' %}">
-        {% if request.user.institute_logo %}
+        {% if request.user.institute.institute_logo %}
         <img
-          src="/media/{{request.user.institute_logo}}"
+          src="/media/{{request.user.institute.institute_logo}}"
           width="30"
           height="30"
           alt=""

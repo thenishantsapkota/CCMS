@@ -56,13 +56,16 @@ class EditProfileView(View):
             user = User.objects.get(username=request.user.username)
             user.first_name = form.data.get("first_name")
             user.last_name = form.data.get("last_name")
-            user.institute_name = form.data.get("institute_name")
-            user.institute_address = form.data.get("institute_address")
+            if institute_name := form.data.get("institute_name"):
+                user.institute.institute_name = institute_name
+            if institute_address := form.data.get("institute_address"):
+                user.institute.institute_address = institute_address
             if logo := request.FILES.get("institute_logo"):
-                user.institute_logo = logo
+                user.institute.institute_logo = logo
             if avatar := request.FILES.get("avatar"):
                 user.avatar = avatar
             user.save()
+            user.institute.save()
             messages.success(request, "Your profile is updated successfully")
             return redirect(to="profile")
 

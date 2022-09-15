@@ -20,7 +20,7 @@ poppins_regular = ImageFont.truetype("fonts/regular.ttf", size=40)
 square_dot = ImageFont.truetype("fonts/RepetitionScrolling.ttf", size=40)
 poppins_bold = ImageFont.truetype("fonts/bold.ttf", size=40)
 patrick = ImageFont.truetype("fonts/patrick.ttf", size=50)
-revue = ImageFont.truetype("fonts/RevueBT.ttf", size=90)
+revue = ImageFont.truetype("fonts/RevueBT.ttf", size=80)
 
 
 def create_certificate(
@@ -58,17 +58,16 @@ def create_certificate(
     date = issued_date.split("-")
     issue_date = "-".join(date[::-1])
     image = Image.open("images/certificate.jpg")
-    logo = Image.open(f"./media/{user.institute_logo}").resize((216, 231))
+    logo = Image.open(f"./media/{user.institute.institute_logo}").resize((216, 231))
     x_coord = image.size[0] / 2
     image.paste(logo, (int(x_coord - 100), 120), logo)
     draw = ImageDraw.Draw(image)
 
     draw.text(
         xy=(x_coord, 400),
-        text=user.institute_name.upper(),
+        text=user.institute.institute_name.upper(),
         font=revue,
-        fill=(0, 0, 0),
-        align="left",
+        fill=0xFFF000,
         anchor="mm",
     )
 
@@ -102,14 +101,14 @@ def create_certificate(
     rows = [
         [
             (poppins_regular, "This is to certify that "),
-            (square_dot, f"{'Mr.' if gender=='male' else 'Ms.'} {student_name} "),
+            (poppins_bold, f"{'Mr.' if gender=='male' else 'Ms.'} {student_name} "),
             (poppins_regular, f"{'daughter' if gender=='female' else 'son'} of"),
-            (square_dot, f" Mr. {father_name}"),
+            (poppins_bold, f" Mr. {father_name}"),
             (poppins_regular, " is"),
         ],
         [
             (poppins_regular, " an inhabitant of "),
-            (square_dot, student_address),
+            (poppins_bold, student_address),
              (poppins_regular, f" and is a bonafide student"),
         ],
         [
@@ -117,15 +116,15 @@ def create_certificate(
                 poppins_regular,
                 f" of the academy.{'She' if gender=='female' else 'He'} passed the examination of ",
             ),
-            (square_dot, program),
+            (poppins_bold, program),
         ],
         [
             
             (poppins_regular, f" conducted by "),
-            (square_dot, exam_board),
+            (poppins_bold, exam_board),
             (poppins_regular, f" in the year {passed_year} B.S."),
             (poppins_regular, f" and secured "),
-            (square_dot, f"{secured_gpa}."),
+            (poppins_bold, f"{secured_gpa}."),
         ],
         [
             (poppins_regular, " According to the academy, "),
@@ -133,7 +132,7 @@ def create_certificate(
                 poppins_regular,
                 f"{'her' if gender=='female' else 'his'} date of birth is",
             ),
-            (square_dot, f" {dob} B.S.({ad_dob} A.D.)."),
+            (poppins_bold, f" {dob} B.S.({ad_dob} A.D.)."),
         ],
         [
             (
