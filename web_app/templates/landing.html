@@ -41,7 +41,9 @@
       <tr>
       <td>{{certificate.registration_number}}</td>
       <td>{{certificate.student_name}}</td>
-      <td><a download="{{certificate.certificate}}" href="/media/{{certificate.certificate}}">Download</a></td>
+      <td><a download="{{certificate.certificate}}" href="/media/{{certificate.certificate}}">Download</a>
+        <a target="_blank" href="/media/{{certificate.certificate}}">Show</a>
+      </td>
     </tr>
       {% endfor %}
     </tbody>
@@ -71,6 +73,7 @@
     </div>
     {% endif %}
 </div>
+</script>
 {% if 'login' not in request.path%}
 <footer
   class="text-center text-lg-start bg-light text-muted mt-auto fixed-bottom"

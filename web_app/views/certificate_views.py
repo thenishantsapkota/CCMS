@@ -14,7 +14,10 @@ from web_app.utils.util import create_certificate
 
 class LandingView(View):
     def get(self, request):
-        certificate_list = Certificate.objects.filter(user_id=request.user.id).order_by("student_name")
+        if not request.user.is_superuser:
+            certificate_list = Certificate.objects.filter(user_id=request.user.id).order_by("student_name")
+        else:
+            certificate_list = Certificate.objects.all().order_by("student_name")
         paginator = Paginator(certificate_list, 5)
         page_number = request.GET.get("page")
         try:

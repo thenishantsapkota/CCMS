@@ -72,24 +72,24 @@ def create_institute(sender, instance, created, **kwargs):
     if created:
         Institute.objects.create(user=instance)
 
-@receiver(post_save, sender=User)
-def save_institute(sender, instance, created, **kwargs):
-    if created:
-        superuser = User.objects.filter(is_superuser=True).first()
-        instance.institute.institute_name = superuser.institute.institute_name
-        instance.institute.institute_logo = superuser.institute.institute_logo
-        instance.institute.institute_address = superuser.institute.institute_address
+# @receiver(post_save, sender=User)
+# def save_institute(sender, instance, created, **kwargs):
+#     if created:
+#         superuser = User.objects.filter(is_superuser=True).first()
+#         instance.institute.institute_name = superuser.institute.institute_name
+#         instance.institute.institute_logo = superuser.institute.institute_logo
+#         instance.institute.institute_address = superuser.institute.institute_address
 
-        instance.institute.save()
+#         instance.institute.save()
 
-@receiver(post_save, sender=User)
-def update_institute(sender, instance, **kwargs):
-    institutes = Institute.objects.filter(user=instance)
-    superuser = User.objects.filter(is_superuser=True).first()
+# @receiver(post_save, sender=User)
+# def update_institute(sender, instance, **kwargs):
+#     institutes = Institute.objects.filter(user=instance)
+#     superuser = User.objects.filter(is_superuser=True).first()
 
-    for institute in institutes:
-        institute.institute_name = superuser.institute.institute_name
-        institute.institute_logo = superuser.institute.institute_logo
-        institute.institute_address = superuser.institute.institute_address
+#     for institute in institutes:
+#         institute.institute_name = superuser.institute.institute_name
+#         institute.institute_logo = superuser.institute.institute_logo
+#         institute.institute_address = superuser.institute.institute_address
 
-        institute.save()
+#         institute.save()
