@@ -2,6 +2,7 @@ from django.contrib import admin
 
 from web_app.models import Certificate, User
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.contrib.auth.models import Group
 from web_app.forms import UserChangeForm, UserCreationForm
 
 # Register your models here.
@@ -34,8 +35,11 @@ class UserAdmin(BaseUserAdmin):
     ordering = ("username",)
     filter_horizontal = ()
 
+
 class CertificateAdmin(admin.ModelAdmin):
     pass
 
+
+admin.site.unregister(Group)
 admin.site.register(User, UserAdmin)
 admin.site.register(Certificate, CertificateAdmin)

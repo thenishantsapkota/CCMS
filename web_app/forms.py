@@ -108,12 +108,8 @@ class ProfileForm(StylishForm):
             }
         ),
     )
-    institute_name = forms.CharField(
-        max_length=200,required=False
-    )
-    institute_address = forms.CharField(
-        max_length=200, required=False
-    )
+    institute_name = forms.CharField(max_length=200, required=False)
+    institute_address = forms.CharField(max_length=200, required=False)
 
 
 class UserCreationForm(forms.ModelForm):

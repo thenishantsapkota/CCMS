@@ -109,7 +109,10 @@ def create_certificate(
             (poppins_bold, student_address),
         ],
         [
-            (poppins_regular, f" and is a bonafide student of the academy. {'She' if gender=='female' else 'He'} passed the "),
+            (
+                poppins_regular,
+                f" and is a bonafide student of the academy. {'She' if gender=='female' else 'He'} passed the ",
+            ),
         ],
         [
             (
@@ -126,7 +129,7 @@ def create_certificate(
             (poppins_bold, f"{secured_gpa}."),
         ],
         [
-            (poppins_regular, " According to the academy, "),
+            (poppins_regular, " According to record of the academy, "),
             (
                 poppins_regular,
                 f"{'her' if gender=='female' else 'his'} date of birth is",

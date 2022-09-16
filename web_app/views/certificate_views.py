@@ -15,7 +15,9 @@ from web_app.utils.util import create_certificate
 class LandingView(View):
     def get(self, request):
         if not request.user.is_superuser:
-            certificate_list = Certificate.objects.filter(user_id=request.user.id).order_by("student_name")
+            certificate_list = Certificate.objects.filter(
+                user_id=request.user.id
+            ).order_by("student_name")
         else:
             certificate_list = Certificate.objects.all().order_by("student_name")
         paginator = Paginator(certificate_list, 5)
@@ -48,7 +50,8 @@ class CertificateView(View):
             create_certificate(
                 request.user,
                 form.cleaned_data["school_name"] or "",
-                form.cleaned_data["school_address"] or request.user.institute.institute_address,
+                form.cleaned_data["school_address"]
+                or request.user.institute.institute_address,
                 form.cleaned_data["established_date"],
                 form.cleaned_data["gender"],
                 form.cleaned_data["student_name"],

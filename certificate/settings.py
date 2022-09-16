@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ["vps112.nest-server.com", "127.0.0.1"]
 # Application definition
 
 INSTALLED_APPS = [
+    "jazzmin",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -132,3 +133,18 @@ LOGIN_URL = "/login"
 LOGIN_REDIRECT_URL = "/"
 
 AUTH_USER_MODEL = "web_app.User"
+
+JAZZMIN_SETTINGS = {
+    "site_title": "Character Certificate Management System",
+    "site_header": "CCMS",
+    "site_brand": "CCMS",
+    "copyright": "Nishant Sapkota",
+    "show_ui_builder": True,
+    "topmenu_links": [
+        {"name": "Home", "url": "admin:index"},
+        {"model": "web_app.User"},
+        {"app": "web_app"},
+    ],
+    "changeform_format": "collapsible",
+    "welcome_sign": "Welcome to CCMS Admin Dashboard"
+}

@@ -31,7 +31,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     @property
     def get_full_name(self):
         return self.first_name + " " + self.last_name
-    
+
 
 class Institute(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -67,10 +67,12 @@ class Certificate(models.Model):
     def __str__(self) -> str:
         return self.registration_number
 
+
 @receiver(post_save, sender=User)
 def create_institute(sender, instance, created, **kwargs):
     if created:
         Institute.objects.create(user=instance)
+
 
 # @receiver(post_save, sender=User)
 # def save_institute(sender, instance, created, **kwargs):
