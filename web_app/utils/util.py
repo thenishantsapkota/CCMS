@@ -1,4 +1,4 @@
-from nepali_datetime import date, datetime
+from nepali_datetime import datetime
 from PIL import Image, ImageFont, ImageDraw
 
 
@@ -17,9 +17,7 @@ def add_newline(string: str, number_of_words: int = 15) -> str:
 
 
 poppins_regular = ImageFont.truetype("fonts/regular.ttf", size=40)
-square_dot = ImageFont.truetype("fonts/RepetitionScrolling.ttf", size=40)
 poppins_bold = ImageFont.truetype("fonts/bold.ttf", size=40)
-patrick = ImageFont.truetype("fonts/patrick.ttf", size=50)
 revue = ImageFont.truetype("fonts/RevueBT.ttf", size=80)
 
 
@@ -147,10 +145,7 @@ def create_certificate(
         x = (image.size[0] - row_length) / 2
 
         for font, segment in row:
-            if font == square_dot:
-                draw.text((x, y+10), segment, fill="black", font=font,)
-            else:
-                draw.text((x, y), segment, fill="black", font=font)
+            draw.text((x, y), segment, fill="black", font=font)
             x += font.getlength(segment)
 
         y += line_height
