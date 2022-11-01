@@ -40,5 +40,5 @@ A Character Certificate Management System written in Django Framework that helps
     
 ## License
 
-BSD-2-Clause-License
+[BSD-2-Clause-License](./LICENSE)
 
